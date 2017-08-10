@@ -1,2 +1,3 @@
-# OurBucket
-OurBucket is a diary application designed for couples.
+# Time Together
+
+Time Together is a diary application designed for couples.
