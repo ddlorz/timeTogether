@@ -1,20 +1,10 @@
 import React from 'react';
 
-class Profile extends React.Component{
-    constructor () {
-        super();
-        this.state = {
-        }
-    }
-
-    render () {
-
-        return (
-            <div>
-                Profile
+let Profile = (props) => (
+    
+            <div className='container'>
+                what?
             </div>
-        );
-    }
-};
+)
 
 export default Profile;

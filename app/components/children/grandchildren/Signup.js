@@ -15,7 +15,7 @@ class Signup extends React.Component {
                 </div>
                 <div className='col-md-4 signup-body'>
                     <h1 className='flower-font signup-text-body'><strong>SIGN UP</strong></h1>
-                    <h4 className='pangolin-font create-bucket-text'>Create your bucket free</h4>
+                    <h4 className='pangolin-font create-bucket-text'>Create your timeline free</h4>
                     <h4 className='pangolin-font'>Your Name and Email</h4>
                     <div className='pangolin-font'>
                             <input type='text' className='form-control input-sm' id='first-name' placeholder='First Name' />
@@ -37,6 +37,6 @@ class Signup extends React.Component {
             </div>
         );
     }
-}
+};
 
 export default Signup;

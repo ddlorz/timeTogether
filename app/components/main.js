@@ -17,7 +17,7 @@ class Main extends React.Component{
 
         return (
             <div>
-                    {Display}
+                {Display}
             </div>
         );
     }

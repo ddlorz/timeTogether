@@ -10,21 +10,21 @@ class Signin extends React.Component {
             <div className='row'>
                 <div className='row center landing-header'>
                     <div className='col-md-6 flower-font'>
-                        <h1 className='text-header'><strong>Time Together</strong></h1>
+                        <a href='#'><h1 className='text-header'><strong>Time Together</strong></h1></a>
                     </div>
                     <div className='col-md-6'>
                         <form className='form-login'>
                             <div className='form-group row main-div-header'>
                                 <div className='col-sm-5 pangolin-font div-input-header'>
-                                    <label for='email-login' className='label-header'>Email</label>
+                                    <label htmlFor='email-login' className='label-header'>Email</label>
                                     <input type='email' className='form-control input-sm input-header' id='email-login' placeholder='' />
                                 </div>
                                 <div className='col-sm-5 pangolin-font div-input-header'>
-                                    <label for='email-login' className='label-header'>Password</label>
+                                    <label htmlFor='email-login' className='label-header'>Password</label>
                                     <input type='password' className='form-control input-sm input-header' id='password-login' placeholder='' />
                                 </div>
                                 <div className='col-sm-2 pangolin-font'>
-                                    <label for='sign-in'></label>
+                                    <label htmlFor='sign-in'></label>
                                     <button type='submit' className='btn' id='sign-in'>Sign in</button>
                                 </div>
                             </div>
@@ -35,6 +35,6 @@ class Signin extends React.Component {
             </div>
         );
     }
-}
+};
 
 export default Signin;
