@@ -5,9 +5,15 @@ import Invitation from './grandchildren/Invitation';
 import Social from './grandchildren/Social';
 import Footer from './grandchildren/Footer';
 
-let Landing = (props) => (
+class Landing extends React.Component {
+    constructor () {
+        super();
+    }
+
+    render () {
+        return (
             <div className='container'>
-                
+
                 <Signin />
 
                 <hr className='top-hr' />
@@ -25,6 +31,8 @@ let Landing = (props) => (
                 <Footer />
 
             </div>
-)
+        );
+    }
+};
 
 export default Landing;

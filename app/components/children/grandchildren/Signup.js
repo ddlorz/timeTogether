@@ -1,8 +1,17 @@
 import React from 'react';
+import Scripts from '../../util/scripts';
 
 class Signup extends React.Component {
     constructor () {
         super();
+        this.signUp = this.signUp.bind(this);
+    }
+
+    signUp () {
+        let firstName = document.getElementById('first-name');
+        let firstEmail = document.getElementById('first-email');
+        let secondName = document.getElementById('second-name');
+        let secondEmail = document.getElementById('second-email');
     }
 
     render () {
@@ -31,7 +40,7 @@ class Signup extends React.Component {
                             <input type='text' className='form-control input-sm' id='second-email' placeholder='Email' />
                     </div>
                     <div className='pangolin-font'>
-                        <button type='submit' className='btn right' id='signup-submit-body'>Submit</button>
+                        <button type='submit' className='btn right' id='signup-submit-body' onClick={this.signUp}>Submit</button>
                     </div>
                 </div>
             </div>
