@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './grandchildren/Footer';
 
 class Profile extends React.Component {
     constructor () {
@@ -11,6 +12,8 @@ class Profile extends React.Component {
                 <div className='row flower-font'>
                     <h1><strong>Time Together</strong></h1>
                 </div>
+
+                <Footer />
             </div>
         );
     }
