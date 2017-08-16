@@ -10,8 +10,8 @@ let dbScripts = {
     saveUrl: (url) => {
         return axios.post('/api/saveUrl', {url: url});
     },
-    savePhotos: (photoArray) => {
-        return axios.post('/api/savePhotos', {photos: photoArray});
+    savePhotos: (photoArray, id) => {
+        return axios.post('/api/savePhotos', {photos: photoArray, id: id});
     },
     saveAlbum: (album) => {
         return axios.post('/api/saveAlbum', {album: album});
@@ -21,6 +21,9 @@ let dbScripts = {
     },
     deletePost: (id) => {
         return axios.post('/api/deletePost', {id: id});
+    },
+    getPhotos: (id) => {
+        return axios.post('/api/getPhotos', {id: id});
     }
 }
 

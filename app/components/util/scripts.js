@@ -16,8 +16,7 @@ let Scripts = {
                                     console.log(res);
                                     callback({bool: true, msg: 'Sign Up Successful', user: res.data}); 
                                 });                                               
-                        })
-                        
+                        })                        
                     }).catch(function (error) {
                         callback({bool: false, msg: error.message});                        
                 });               
@@ -46,22 +45,27 @@ let Scripts = {
             });
     },
 
-    saveAlbum: (thumbURL, photoArray, updatePosts) => {
-        dbScripts.savePhotos(photoArray).then(function(res) {
+    saveAlbum: (thumbURL, updatePosts, callback) => {
+        let album = {
+            thumb: thumbURL,
+            location: document.getElementById('album-city-input').value,
+            month: document.getElementById('album-month-input').value,
+            year: document.getElementById('album-year-input').value,
+            description: document.getElementById('album-desc-input').value,
+            album: []
+        }
+        dbScripts.saveAlbum(album).then(function(res) {
             console.log(res.data._id);
-            let album = {
-                thumb: thumbURL,
-                location: document.getElementById('album-city-input').value,
-                month: document.getElementById('album-month-input').value,
-                year: document.getElementById('album-year-input').value,
-                description: document.getElementById('album-desc-input').value,
-                album_id: res.data._id
-            }
-            dbScripts.saveAlbum(album).then(function(res) {
-                console.log(res.data);
-                updatePosts();
-            });        
-        });        
+            callback(res.data._id);
+            updatePosts();
+        }); 
+    },
+
+    savePhotos: (photoArray, id, updatePosts) => {
+        dbScripts.savePhotos(photoArray, id).then(function(res) {
+            console.log(res.data._id); 
+            updatePosts();
+        }); 
     },
 
     getPosts: (callback) => {
@@ -75,6 +79,13 @@ let Scripts = {
         dbScripts.deletePost(id).then(function(res) {
             console.log('Deleted');
             callback();
+        });
+    },
+
+    getPhotos: (id, callback) => {
+        dbScripts.getPhotos(id).then(function(res) {
+            console.log(res.data.photo);
+            callback(res.data.photo);
         });
     }
 }

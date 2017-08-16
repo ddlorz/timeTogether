@@ -2,6 +2,7 @@ import React from 'react';
 import Nav from './grandchildren/Nav';
 import ProfileModal from './grandchildren/ProfileModal';
 import AlbumModal from './grandchildren/AlbumModal';
+import CarouselModal from './grandchildren/CarouselModal';
 import Filter from './grandchildren/Filter';
 import Posts from './grandchildren/Posts';
 import AWS from '../util/aws';
@@ -11,7 +12,7 @@ import {Redirect} from 'react-router-dom';
 
 class Profile extends React.Component {
     constructor (props) {
-        super(props);
+        super(props);        
         this.loadPosts = this.loadPosts.bind(this);
         this.changePicture = this.changePicture.bind(this);
         this.previewPicture = this.previewPicture.bind(this);
@@ -23,7 +24,7 @@ class Profile extends React.Component {
 
     componentWillMount () {
         this.loadPosts();
-    }   
+    } 
 
     loadPosts () {        
         Scripts.getPosts((posts) => {
@@ -60,18 +61,23 @@ class Profile extends React.Component {
     saveAlbum () {
         let updatePosts = this.loadPosts;
         let thumbURL = '', photoArray = [];
+        let albumID = '';
         let canvas = document.getElementById('picture-canvas');
         let files = document.getElementById('album-photo-input').files;
         canvas.toBlob(function(blob) { AWS(blob, 'thumb', 
             (url) => {
                 thumbURL = url;
+                Scripts.saveAlbum(thumbURL, updatePosts, (id) => {
+                    albumID = id;
+                    console.log(albumID);
+                }); 
                 for (var i = 0; i < files.length; i++) {
                     AWS(files[i], 'photo', 
                         (url) => {
                             photoArray.push(url);
                             if (photoArray.length === files.length) {
                                 console.log(photoArray);
-                                Scripts.saveAlbum(thumbURL, photoArray, updatePosts);
+                                Scripts.savePhotos(photoArray, albumID, updatePosts);
                             }
                         }
                     )
@@ -115,65 +121,9 @@ class Profile extends React.Component {
 
                 <ProfileModal previewPicture={this.previewPicture} changePicture={this.changePicture} user={this.props.user} />                
 
-                <AlbumModal previewAlbum={this.previewAlbum} saveAlbum={this.saveAlbum} />   
+                <AlbumModal previewAlbum={this.previewAlbum} saveAlbum={this.saveAlbum} />         
 
-                <button type='button' className='btn btn-default btn-sm center-block'  data-toggle='modal' data-target='#album-carousel-modal'>Carousel</button>            
-
-                <div className='modal fade' tabIndex='-1' role='dialog' id='album-carousel-modal'>
-                    <div className='modal-dialog' role='document'>
-                        <div className='modal-content'>
-                            <div className='modal-header'>
-                                <button type='button' className='close' data-dismiss='modal'>
-                                    <span aria-hidden='true'>&times;</span>
-                                </button>
-                                <h4 className='modal-title pangolin-font'>Album Photos</h4>
-                            </div>
-                            <div className='modal-body'>
-
-                                {/*CAROUSEL*/}                                
-                                <div id='album-carousel' className='carousel slide' data-ride='carousel'>
-                                    <ol className='carousel-indicators'>
-                                     <li data-target='#album-carousel' data-slide-to='0' className='active'></li>
-                                        {this.props.photos.map((photo) => {
-                                            this.props.counter();
-                                            return (
-                                                <li data-target='#album-carousel' data-slide-to={this.props.count}></li>                                                
-                                            );
-                                        })}
-                                        
-                                    </ol>
-                
-                                    <div className='carousel-inner' role='listbox'>
-                                        <div className='item active'>
-                                            <img src='http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg' alt='...' />
-                                        </div>
-                                        
-                                        <div className='item'>
-                                            <img src='http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg' alt='...' />
-                                        </div>
-                
-                                        <div className='item'>
-                                            <img src='http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg' alt='...' />
-                                        </div>
-                                    </div>
-                
-                                    <a className='left carousel-control' href='#album-carousel' role='button' data-slide='prev'>
-                                        <span className='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
-                                        <span className='sr-only'>Previous</span>
-                                    </a>
-                                    <a className='right carousel-control' href='#album-carousel' role='button' data-slide='next'>
-                                        <span className='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
-                                        <span className='sr-only'>Next</span>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div className='modal-footer pangolin-font'>
-                                <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <CarouselModal post={this.props.posts} />
 
                 <hr />
 

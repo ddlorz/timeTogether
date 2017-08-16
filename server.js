@@ -21,7 +21,7 @@ app.use(session({
     secret: 'cat',
     resave: true,
     saveUninitialized: false,
-    maxAge: Date.now() + (1000 * 60 * 10)
+    cookie: {expires: new Date(253402300000000)}
 }));
 
 //Mongoose

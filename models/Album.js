@@ -19,8 +19,8 @@ let AlbumSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    album_id: {
-        type: String
+    album: {
+        type: Array
     }
 });
 

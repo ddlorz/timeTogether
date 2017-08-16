@@ -42,11 +42,9 @@ module.exports = function(app) {
 
     app.post('/api/savePhotos', function(req, res) {
         console.log('save Photos');
-        let newPhotos = new Photo({photo: req.body.photos});
-        newPhotos.save(function(err, doc) {
+        Album.findByIdAndUpdate(req.body.id, {album: req.body.photos}, function(err, doc) {
             if (err) console.log(err);
             console.log(doc);
-            res.send(doc);
         });
     });
 
@@ -69,5 +67,13 @@ module.exports = function(app) {
                 res.end();
             });
         });       
+    });
+
+    app.post('/api/getPhotos', function(req, res) {
+        console.log('get Photos');
+        Photo.findById(req.body.id, function(err, doc) {
+            if (err) console.log(err);
+            res.send(doc);
+        });
     });
 }

@@ -1,16 +1,6 @@
 import React from 'react';
 
 class Invitation extends React.Component {
-    constructor () {
-        super();
-        this.submitLink = this.submitLink.bind(this);        
-    }
-
-    submitLink (event) {
-        event.preventDefault();
-        //Something
-    }
-
     render () {
         return (
             <div className='row'>
@@ -21,7 +11,7 @@ class Invitation extends React.Component {
                             <span className='input-group-addon profile-link'>Link</span>
                             <input type='text' className='form-control' id='invitation-link' placeholder='' />
                             <span className='input-group-btn'>
-                                <button className='btn btn-secondary' type='button' onClick={this.submitLink}>Submit</button>
+                                <button className='btn btn-secondary' type='button'>Submit</button>
                             </span>
                         </div>
                     </div>

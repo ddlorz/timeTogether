@@ -1,10 +1,6 @@
 import React from 'react';
 
 class Filter extends React.Component {
-    constructor () {
-        super();    
-    }
-
     render () {
         return (
             <div className='col-md-2 pangolin-font'>

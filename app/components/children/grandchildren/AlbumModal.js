@@ -1,10 +1,6 @@
 import React from 'react';
 
 class AlbumModal extends React.Component {
-    constructor () {
-        super();    
-    }
-
     render () {
         return (
             <div className='modal fade' tabIndex='-1' role='dialog' id='add-album-modal'>
