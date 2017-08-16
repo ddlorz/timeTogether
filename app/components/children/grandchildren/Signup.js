@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import Scripts from '../../util/scripts';
 
 class Signup extends React.Component {
@@ -7,11 +8,22 @@ class Signup extends React.Component {
         this.signUp = this.signUp.bind(this);
     }
 
-    signUp () {
-        let firstName = document.getElementById('first-name');
-        let firstEmail = document.getElementById('first-email');
-        let secondName = document.getElementById('second-name');
-        let secondEmail = document.getElementById('second-email');
+    signUp (event) {
+        event.preventDefault();
+        let user = {
+            name: document.getElementById('name').value.trim().toLowerCase(),
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value.trim(),
+            confirm_password: document.getElementById('confirm-password').value.trim()
+        }
+        Scripts.signUpAccount(user, (state) => {
+            console.log(state.msg);
+            
+            if (state.user) {
+                this.props.updateUser(state.user);  
+                this.props.updateLog();
+            }  
+        });
     }
 
     render () {
@@ -26,22 +38,21 @@ class Signup extends React.Component {
                     <h1 className='flower-font signup-text-body'><strong>SIGN UP</strong></h1>
                     <h4 className='pangolin-font create-bucket-text'>Create your timeline free</h4>
                     <h4 className='pangolin-font'>Your Name and Email</h4>
-                    <div className='pangolin-font'>
-                            <input type='text' className='form-control input-sm' id='first-name' placeholder='First Name' />
-                    </div>
-                    <div className='pangolin-font'>
-                            <input type='text' className='form-control input-sm' id='first-email' placeholder='Email' />
-                    </div>
-                    <h5 className='pangolin-font'>Your Special Someone's Name and Email (optional)</h5>
-                    <div className='pangolin-font'>
-                            <input type='text' className='form-control input-sm' id='second-name' placeholder='First Name' />
-                    </div>
-                    <div className='pangolin-font'>
-                            <input type='text' className='form-control input-sm' id='second-email' placeholder='Email' />
-                    </div>
-                    <div className='pangolin-font'>
-                        <button type='submit' className='btn right' id='signup-submit-body' onClick={this.signUp}>Submit</button>
-                    </div>
+                    <form>
+                        <div className='form-group pangolin-font'>
+                                <input type='text' className='form-control input-sm' id='name' placeholder='First Name' value='Aragorn Gimli' />
+                        </div>
+                        <div className='form-group pangolin-font'>
+                                <input type='text' className='form-control input-sm' id='email' placeholder='Email' value='a@gmail.com' />
+                        </div>
+                        <div className='form-group pangolin-font'>
+                                <input type='password' className='form-control input-sm' id='password' placeholder='Password' value='password' />
+                        </div>
+                        <div className='form-group pangolin-font'>
+                                <input type='password' className='form-control input-sm' id='confirm-password' placeholder='Confirm Password' value='password' />
+                        </div>
+                        <button type='submit' className='btn btn-default right' id='signup-submit-body' onClick={this.signUp}>Submit</button>
+                    </form>
                 </div>
             </div>
         );

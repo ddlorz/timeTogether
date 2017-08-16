@@ -2,8 +2,7 @@ import React from 'react';
 import Signin from './grandchildren/Signin';
 import Signup from './grandchildren/Signup';
 import Invitation from './grandchildren/Invitation';
-import Social from './grandchildren/Social';
-import Footer from './grandchildren/Footer';
+import {Redirect} from 'react-router-dom';
 
 class Landing extends React.Component {
     constructor () {
@@ -11,25 +10,23 @@ class Landing extends React.Component {
     }
 
     render () {
+        if (this.props.logged) return <Redirect push to='/profile' />;
+
         return (
             <div className='container'>
-
-                <Signin />
+            
+                <Signin updateUser={this.props.updateUser} updateLog={this.props.updateLog} />
 
                 <hr className='top-hr' />
 
-                <Signup />
+                <Signup updateUser={this.props.updateUser} updateLog={this.props.updateLog} />
 
                 <hr className='mid-hr' />
 
                 <Invitation />
 
-                <hr className='bot-hr' />
-
-                <Social />
-
-                <Footer />
-
+                <hr className='bot-hr' />                
+                
             </div>
         );
     }
