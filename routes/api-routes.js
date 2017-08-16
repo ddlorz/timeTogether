@@ -59,4 +59,15 @@ module.exports = function(app) {
             res.send(doc);
         });
     });
+
+    app.post('/api/deletePost', function(req, res) {
+        console.log('delete Post');
+        Photo.findByIdAndRemove(req.body.id, function(err, doc) {
+            if (err) console.log(err);
+            Album.remove({album_id: req.body.id}, function(err, doc) {
+                if (err) console.log(err);
+                res.end();
+            });
+        });       
+    });
 }

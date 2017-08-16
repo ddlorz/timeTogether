@@ -11,11 +11,20 @@ class Main extends React.Component{
         this.state = {
             user: {},
             posts: [],
+            photos: ['http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg','http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg','http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg'],
+            count: 0,
             loggedIn: false
         }
         this.updateUser = this.updateUser.bind(this);
         this.updateLog = this.updateLog.bind(this);
         this.getPosts = this.getPosts.bind(this);
+        this.counter = this.counter.bind(this);
+    }
+
+    counter () {
+        this.setState({
+            count: this.state.count + 1
+        })
     }
 
     getPosts (posts) {
@@ -44,7 +53,7 @@ class Main extends React.Component{
         return (
             <div>    
                 <Route exact path='/' render={ () => <Landing updateUser={this.updateUser} updateLog={this.updateLog} logged={this.state.loggedIn} />} />
-                <Route path='/profile' render={ () => <Profile user={this.state.user} updateLog={this.updateLog} logged={this.state.loggedIn} posts={this.state.posts} getPosts={this.getPosts} />} />
+                <Route path='/profile' render={ () => <Profile user={this.state.user} updateLog={this.updateLog} logged={this.state.loggedIn} posts={this.state.posts} getPosts={this.getPosts} photos={this.state.photos} count={this.state.count} counter={this.counter} />} />
 
                 <Social />
                 <Footer />

@@ -69,6 +69,13 @@ let Scripts = {
             console.log(res.data);
             callback(res.data);
         });
+    },
+
+    deletePost: (id, callback) => {
+        dbScripts.deletePost(id).then(function(res) {
+            console.log('Deleted');
+            callback();
+        });
     }
 }
 

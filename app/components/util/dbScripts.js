@@ -18,6 +18,9 @@ let dbScripts = {
     },
     getPosts: () => {
         return axios.post('/api/getPosts', {});
+    },
+    deletePost: (id) => {
+        return axios.post('/api/deletePost', {id: id});
     }
 }
 

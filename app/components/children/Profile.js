@@ -18,11 +18,12 @@ class Profile extends React.Component {
         this.previewAlbum = this.previewAlbum.bind(this);
         this.signOut = this.signOut.bind(this);
         this.saveAlbum = this.saveAlbum.bind(this);
+        this.deletePost = this.deletePost.bind(this);
     }
 
     componentWillMount () {
         this.loadPosts();
-    }    
+    }   
 
     loadPosts () {        
         Scripts.getPosts((posts) => {
@@ -41,15 +42,20 @@ class Profile extends React.Component {
     }
 
     previewAlbum () {
-        console.log('preview');
-        console.log(this.props.posts);
         imageScripts.previewPicture('album-thumbnail-input', 'picture-canvas', 'album-canvas');
     }
 
     changePicture () {
         let canvas = document.getElementById('profile-canvas');
         canvas.toBlob(function(blob) { AWS(blob, 'profile') });
-    }   
+    }  
+    
+    deletePost (id) {
+        console.log(id);
+        Scripts.deletePost(id, () => {
+            this.loadPosts();
+        });
+    }
     
     saveAlbum () {
         let updatePosts = this.loadPosts;
@@ -97,7 +103,7 @@ class Profile extends React.Component {
                         </div>
                         
                         {/* ALBUM POSTS */}                        
-                        <Posts posts={this.props.posts} />
+                        <Posts posts={this.props.posts} deletePost={this.deletePost} loadPosts={this.loadPosts} deletePost={this.deletePost} />
                         
                     </div>      
 
@@ -109,7 +115,65 @@ class Profile extends React.Component {
 
                 <ProfileModal previewPicture={this.previewPicture} changePicture={this.changePicture} user={this.props.user} />                
 
-                <AlbumModal previewAlbum={this.previewAlbum} saveAlbum={this.saveAlbum} />
+                <AlbumModal previewAlbum={this.previewAlbum} saveAlbum={this.saveAlbum} />   
+
+                <button type='button' className='btn btn-default btn-sm center-block'  data-toggle='modal' data-target='#album-carousel-modal'>Carousel</button>            
+
+                <div className='modal fade' tabIndex='-1' role='dialog' id='album-carousel-modal'>
+                    <div className='modal-dialog' role='document'>
+                        <div className='modal-content'>
+                            <div className='modal-header'>
+                                <button type='button' className='close' data-dismiss='modal'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                                <h4 className='modal-title pangolin-font'>Album Photos</h4>
+                            </div>
+                            <div className='modal-body'>
+
+                                {/*CAROUSEL*/}                                
+                                <div id='album-carousel' className='carousel slide' data-ride='carousel'>
+                                    <ol className='carousel-indicators'>
+                                     <li data-target='#album-carousel' data-slide-to='0' className='active'></li>
+                                        {this.props.photos.map((photo) => {
+                                            this.props.counter();
+                                            return (
+                                                <li data-target='#album-carousel' data-slide-to={this.props.count}></li>                                                
+                                            );
+                                        })}
+                                        
+                                    </ol>
+                
+                                    <div className='carousel-inner' role='listbox'>
+                                        <div className='item active'>
+                                            <img src='http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg' alt='...' />
+                                        </div>
+                                        
+                                        <div className='item'>
+                                            <img src='http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg' alt='...' />
+                                        </div>
+                
+                                        <div className='item'>
+                                            <img src='http://www.piz18.com/wp-content/uploads/2011/11/Cute-Cat6.jpg' alt='...' />
+                                        </div>
+                                    </div>
+                
+                                    <a className='left carousel-control' href='#album-carousel' role='button' data-slide='prev'>
+                                        <span className='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
+                                        <span className='sr-only'>Previous</span>
+                                    </a>
+                                    <a className='right carousel-control' href='#album-carousel' role='button' data-slide='next'>
+                                        <span className='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
+                                        <span className='sr-only'>Next</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div className='modal-footer pangolin-font'>
+                                <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <hr />
 
