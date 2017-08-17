@@ -45,6 +45,7 @@ module.exports = function(app) {
         Album.findByIdAndUpdate(req.body.id, {album: req.body.photos}, function(err, doc) {
             if (err) console.log(err);
             console.log(doc);
+            res.end();
         });
     });
 
@@ -60,12 +61,9 @@ module.exports = function(app) {
 
     app.post('/api/deletePost', function(req, res) {
         console.log('delete Post');
-        Photo.findByIdAndRemove(req.body.id, function(err, doc) {
+        Album.findByIdAndRemove(req.body.id, function(err, doc) {
             if (err) console.log(err);
-            Album.remove({album_id: req.body.id}, function(err, doc) {
-                if (err) console.log(err);
-                res.end();
-            });
+            res.send(doc);
         });       
     });
 

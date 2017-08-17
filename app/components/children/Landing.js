@@ -11,6 +11,7 @@ class Landing extends React.Component {
 
     render () {
         if (this.props.logged) return <Redirect push to='/profile' />;
+        if (this.props.visitor) return <Redirect push to='/visit' />;
 
         return (
             <div className='container'>
@@ -23,7 +24,7 @@ class Landing extends React.Component {
 
                 <hr className='mid-hr' />
 
-                <Invitation />
+                <Invitation updateVisitor={this.props.updateVisitor} />
 
                 <hr className='bot-hr' />                
                 

@@ -4,6 +4,7 @@ import ProfileModal from './grandchildren/ProfileModal';
 import AlbumModal from './grandchildren/AlbumModal';
 import CarouselModal from './grandchildren/CarouselModal';
 import Filter from './grandchildren/Filter';
+import User from './grandchildren/User';
 import Posts from './grandchildren/Posts';
 import AWS from '../util/aws';
 import Scripts from '../util/scripts';
@@ -20,6 +21,12 @@ class Profile extends React.Component {
         this.signOut = this.signOut.bind(this);
         this.saveAlbum = this.saveAlbum.bind(this);
         this.deletePost = this.deletePost.bind(this);
+        this.loadPhotos = this.loadPhotos.bind(this);
+    }
+
+    loadPhotos (id) {
+        console.log(id);
+        this.props.saveAlbumID(id);
     }
 
     componentWillMount () {
@@ -97,21 +104,10 @@ class Profile extends React.Component {
                 <hr className='top-hr' />
 
                 <div className='row'>
-                    <div className='col-md-3 user-panel pangolin-font'>
-                        <img src={this.props.user.picture} alt='Profile Picture' className='img-responsive img-thumbnail center-block' id='display-photo' data-toggle='modal' data-target='#profile-picture-modal'/>
-                        <a><h3 className='text-center'><u>{this.props.user.displayName}</u></h3></a>
-                        <h4 className='text-center'>Generate Link</h4>
-                    </div>   
-
-                    <div className='col-md-7 col-md-offset-0'>
-                        <div className='row add-album-div'>
-                            <button type='button' className='btn btn-default btn-sm center-block'  data-toggle='modal' data-target='#add-album-modal'>Add Album</button>
-                        </div>
-                        
-                        {/* ALBUM POSTS */}                        
-                        <Posts posts={this.props.posts} deletePost={this.deletePost} loadPosts={this.loadPosts} deletePost={this.deletePost} />
-                        
-                    </div>      
+                    
+                    <User user={this.props.user} />
+                                            
+                    <Posts posts={this.props.posts} deletePost={this.deletePost} loadPhotos={this.loadPhotos} deletePost={this.deletePost} />                           
 
                     <Filter />
 
@@ -123,7 +119,7 @@ class Profile extends React.Component {
 
                 <AlbumModal previewAlbum={this.previewAlbum} saveAlbum={this.saveAlbum} />         
 
-                <CarouselModal post={this.props.posts} />
+                <CarouselModal posts={this.props.posts} photos={this.props.photos} />
 
                 <hr />
 

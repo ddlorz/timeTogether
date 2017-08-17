@@ -2,6 +2,11 @@ import React from 'react';
 
 class CarouselModal extends React.Component {
     render () {
+
+        let postMatch = [];
+        postMatch = this.props.posts.filter((post) => {return post._id === this.props.photos})
+        if (!postMatch[0]) postMatch[0] = {album: ['placeholder']};
+
         return (
             <div className='modal fade' tabIndex='-1' role='dialog' id='album-carousel-modal'>
                 <div className='modal-dialog' role='document'>
@@ -14,10 +19,10 @@ class CarouselModal extends React.Component {
                         </div>
                         <div className='modal-body'>
 
-                        {/*CAROUSEL*/}                                
+                        {/*CAROUSEL*/}                            
                             <div id="album-carousel" className="carousel slide" data-ride="carousel">
                                 <ol className="carousel-indicators">
-                                    {this.props.post.map((photo, index) => {
+                                    {postMatch[0].album.map((photo, index) => {
                                         let active = '';
                                         if (index === 0) active = 'active';
                                         return ( 
@@ -27,7 +32,7 @@ class CarouselModal extends React.Component {
                                 </ol>
 
                                 <div className="carousel-inner" role="listbox">
-                                    {this.props.photos.map((photo, index) => {
+                                    {postMatch[0].album.map((photo, index) => {
                                         let active = 'item';
                                         if (index === 0) active = 'item active';
                                         return (
