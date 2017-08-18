@@ -146,9 +146,22 @@
 #submit-filter {
     margin-top: 10px;
 }
-#modal-album-picture, #album-photo-input, #album-city-input, #album-month-input, #album-desc-input, #album-year-input {
+#modal-album-picture, #album-photo-input, #album-city-input, #album-month-input, #album-desc-input, #album-year-input, .video, #video-city-input, #video-month-input, #video-desc-input, #video-year-input, #poster-input {
     margin-bottom: 5px; 
 }
 .album-pic, #secret-question, #secret-answer {
     margin-bottom: 10px;
+}
+.no-border {
+    border: 0;
+}
+#video-city-input {
+    margin-top: 25px;
+}
+.videoPost {
+    background-color: #000000;
+    margin-bottom: 10px;
+}
+.info-div {
+    padding-left: 0;
 }

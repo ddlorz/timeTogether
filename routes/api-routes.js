@@ -1,11 +1,10 @@
 const User = require('../models/User.js');
-const Album = require('../models/Album.js');
-const Photo = require('../models/Photo.js');
+const Post = require('../models/Post.js');
 
 module.exports = function(app) {
 
     app.post('/api/getPosts', function(req, res) {        
-        Album.find({email: req.session.user.email}, function(err, doc) {
+        Post.find({email: req.session.user.email}, function(err, doc) {
             if (err) console.log(err);
             res.send(doc);
         });
@@ -42,7 +41,7 @@ module.exports = function(app) {
 
     app.post('/api/savePhotos', function(req, res) {
         console.log('save Photos');
-        Album.findByIdAndUpdate(req.body.id, {album: req.body.photos}, function(err, doc) {
+        Post.findByIdAndUpdate(req.body.id, {album: req.body.photos}, function(err, doc) {
             if (err) console.log(err);
             console.log(doc);
             res.end();
@@ -52,26 +51,28 @@ module.exports = function(app) {
     app.post('/api/saveAlbum', function(req, res) {
         console.log('save Album');
         req.body.album.email = req.session.user.email;
-        let newAlbum = new Album(req.body.album);
-        newAlbum.save(function(err, doc) {
+        let newPost = new Post(req.body.album);
+        newPost.save(function(err, doc) {
             if (err) console.log(err);
             res.send(doc);
         });
+    });
+
+    app.post('/api/saveVideo', function(req, res) {
+        console.log('save Video');
+        req.body.video.email = req.session.user.email;
+        let newPost = new Post(req.body.video);
+        newPost.save(function(err, doc) {
+            if (err) console.log(err);
+            res.send(doc);
+        }); 
     });
 
     app.post('/api/deletePost', function(req, res) {
         console.log('delete Post');
-        Album.findByIdAndRemove(req.body.id, function(err, doc) {
+        Post.findByIdAndRemove(req.body.id, function(err, doc) {
             if (err) console.log(err);
             res.send(doc);
         });       
-    });
-
-    app.post('/api/getPhotos', function(req, res) {
-        console.log('get Photos');
-        Photo.findById(req.body.id, function(err, doc) {
-            if (err) console.log(err);
-            res.send(doc);
-        });
     });
 }

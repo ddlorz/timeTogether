@@ -16,14 +16,14 @@ let dbScripts = {
     saveAlbum: (album) => {
         return axios.post('/api/saveAlbum', {album: album});
     },
+    saveVideo: (video) => {
+        return axios.post('/api/saveVideo', {video: video});
+    },
     getPosts: () => {
         return axios.post('/api/getPosts', {});
     },
     deletePost: (id) => {
         return axios.post('/api/deletePost', {id: id});
-    },
-    getPhotos: (id) => {
-        return axios.post('/api/getPhotos', {id: id});
     }
 }
 

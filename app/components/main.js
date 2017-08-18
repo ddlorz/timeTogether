@@ -13,6 +13,7 @@ class Main extends React.Component{
             user: {},
             posts: [],
             photos: '',
+            video: null,
             loggedIn: false,
             visitor: false
         }

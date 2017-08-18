@@ -45,6 +45,21 @@ let Scripts = {
             });
     },
 
+    saveVideo: (videoURL, posterURL, callback) => {
+        let video = {
+            thumb: posterURL,
+            location: document.getElementById('video-city-input').value,
+            month: document.getElementById('video-month-input').value,
+            year: document.getElementById('video-year-input').value,
+            description: document.getElementById('video-desc-input').value,
+            video: videoURL
+        };
+        dbScripts.saveVideo(video).then(function(res) {
+            console.log(res.data);
+            callback();
+        });
+    },
+
     saveAlbum: (thumbURL, updatePosts, callback) => {
         let album = {
             thumb: thumbURL,
@@ -53,7 +68,7 @@ let Scripts = {
             year: document.getElementById('album-year-input').value,
             description: document.getElementById('album-desc-input').value,
             album: []
-        }
+        };
         dbScripts.saveAlbum(album).then(function(res) {
             console.log(res.data._id);
             callback(res.data._id);
@@ -79,13 +94,6 @@ let Scripts = {
         dbScripts.deletePost(id).then(function(res) {
             console.log('Deleted');
             callback();
-        });
-    },
-
-    getPhotos: (id, callback) => {
-        dbScripts.getPhotos(id).then(function(res) {
-            console.log(res.data.photo);
-            callback(res.data.photo);
         });
     }
 }

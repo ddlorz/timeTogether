@@ -2,6 +2,8 @@ import React from 'react';
 import Nav from './grandchildren/Nav';
 import ProfileModal from './grandchildren/ProfileModal';
 import AlbumModal from './grandchildren/AlbumModal';
+import VideoModal from './grandchildren/VideoModal';
+import ParentModal from './grandchildren/ParentModal';
 import CarouselModal from './grandchildren/CarouselModal';
 import Filter from './grandchildren/Filter';
 import User from './grandchildren/User';
@@ -22,6 +24,7 @@ class Profile extends React.Component {
         this.saveAlbum = this.saveAlbum.bind(this);
         this.deletePost = this.deletePost.bind(this);
         this.loadPhotos = this.loadPhotos.bind(this);
+        this.saveVideo = this.saveVideo.bind(this);
     }
 
     test () {
@@ -97,6 +100,22 @@ class Profile extends React.Component {
         )});
     }
 
+    saveVideo () {
+        let updatePosts = this.loadPosts;
+        let video = document.getElementById('video-input').files;
+        let poster = document.getElementById('poster-input').files;
+        AWS(video[0], 'video', (url) => {
+            let videoURL = url.replace('time-together.s3.amazonaws.com', 'd281fcpe4558jz.cloudfront.net');
+            console.log(videoURL);
+            AWS(poster[0], 'photo', (url) => {
+                let posterURL = url;
+                Scripts.saveVideo(videoURL, posterURL, () => {
+                    updatePosts();
+                });
+            });
+        });
+    }
+
     render () {
         if (!this.props.logged) return <Redirect push to='/' />;
 
@@ -119,9 +138,9 @@ class Profile extends React.Component {
 
                 {/* MODALS! */}
 
-                <ProfileModal previewPicture={this.previewPicture} changePicture={this.changePicture} user={this.props.user} />                
+                <ProfileModal previewPicture={this.previewPicture} changePicture={this.changePicture} user={this.props.user} />   
 
-                <AlbumModal previewAlbum={this.previewAlbum} saveAlbum={this.saveAlbum} />         
+                <ParentModal previewAlbum={this.previewAlbum} saveAlbum={this.saveAlbum}  saveVideo={this.saveVideo} />  
 
                 <CarouselModal posts={this.props.posts} photos={this.props.photos} />
 

@@ -15,7 +15,7 @@ export default function AWS(file, tag, callback, length, loop) {
 
     function getSignedRequest(file) {
         const xhr = new XMLHttpRequest();
-        if (tag !== 'photo') file.name = uuid();        
+        if (tag === 'thumb' || tag === 'profile') {console.log(tag); file.name = uuid()};        
         xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4){
@@ -43,10 +43,7 @@ export default function AWS(file, tag, callback, length, loop) {
                     document.getElementById('display-photo').src = url;
                     dbScripts.saveUrl(url);
                 }
-                else if (tag === 'thumb') {
-                    callback(url);
-                }
-                else if (tag === 'photo') {
+                else if (tag === 'thumb' || tag === 'photo' || tag === 'video') {
                     callback(url);
                 }
             }

@@ -17,9 +17,7 @@ let imageScripts = {
                 img.setAttribute('id', id);
                 img.setAttribute('class', 'center-block thumbnail');
                 console.log(img);
-                let ElParent = document.getElementById(parent);
-                ElParent.removeChild(ElParent.firstChild);
-                ElParent.appendChild(img);
+                document.getElementById(parent).replaceChild(img, document.getElementById(parent).childNodes[0]);
             },
             {maxWidth: 550, orientation: true, crop: true}
         );      

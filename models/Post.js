@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let AlbumSchema = new mongoose.Schema({
+let PostSchema = new mongoose.Schema({
     email: {
         type: String
     },
@@ -20,8 +20,13 @@ let AlbumSchema = new mongoose.Schema({
         type: String
     },
     album: {
-        type: Array
+        type: Array,
+        required: false
+    },
+    video: {
+        type: String,
+        required: false
     }
 });
 
-module.exports = mongoose.model('Album', AlbumSchema);
+module.exports = mongoose.model('Post', PostSchema);
