@@ -9,7 +9,7 @@ class Invitation extends React.Component {
                         <h4 className='text-center'><strong>Did a family or friend give you a link? Enter it here.</strong></h4>
                         <div className='input-group'>                            
                             <span className='input-group-addon profile-link'>Link</span>
-                            <input type='text' className='form-control' id='invitation-link' placeholder='' />
+                            <input type='text' className='form-control' id='invitation-link' />
                             <span className='input-group-btn'>
                                 <button className='btn btn-secondary' type='button' onClick={this.props.updateVisitor} >Submit</button>
                             </span>

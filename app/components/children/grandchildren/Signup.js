@@ -40,16 +40,16 @@ class Signup extends React.Component {
                     <h4 className='pangolin-font'>Your Name and Email</h4>
                     <form>
                         <div className='form-group pangolin-font'>
-                                <input type='text' className='form-control input-sm' id='name' placeholder='First Name' value='Aragorn Gimli' />
+                                <input type='text' className='form-control input-sm' id='name' placeholder='First Name' />
                         </div>
                         <div className='form-group pangolin-font'>
-                                <input type='text' className='form-control input-sm' id='email' placeholder='Email' value='a@gmail.com' />
+                                <input type='text' className='form-control input-sm' id='email' placeholder='Email' />
                         </div>
                         <div className='form-group pangolin-font'>
-                                <input type='password' className='form-control input-sm' id='password' placeholder='Password' value='password' />
+                                <input type='password' className='form-control input-sm' id='password' placeholder='Password' />
                         </div>
                         <div className='form-group pangolin-font'>
-                                <input type='password' className='form-control input-sm' id='confirm-password' placeholder='Confirm Password' value='password' />
+                                <input type='password' className='form-control input-sm' id='confirm-password' placeholder='Confirm Password' />
                         </div>
                         <button type='submit' className='btn btn-default right' id='signup-submit-body' onClick={this.signUp}>Submit</button>
                     </form>

@@ -10,6 +10,7 @@ let UserSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
+        default:'https://d3g919u5f14ld1.cloudfront.net/assets/images/users/default-avatar.svg'
     }
 });
 

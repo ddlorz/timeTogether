@@ -110,7 +110,7 @@
     height: auto;
     margin-top: 20px;
 }
-#display-photo:hover, li:hover {
+#display-photo:hover, li:hover, .generate-code:hover {
     cursor: pointer;
 }
 .add-album-div { 
@@ -149,6 +149,6 @@
 #modal-album-picture, #album-photo-input, #album-city-input, #album-month-input, #album-desc-input, #album-year-input {
     margin-bottom: 5px; 
 }
-.album-pic {
+.album-pic, #secret-question, #secret-answer {
     margin-bottom: 10px;
 }
