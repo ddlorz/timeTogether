@@ -1,6 +1,7 @@
 import validator from 'validator';
 import config from './keys/firebase';
 import dbScripts from './dbScripts';
+import moment from 'moment';
 
 firebase.initializeApp(config);
 
@@ -95,7 +96,20 @@ let Scripts = {
             console.log('Deleted');
             callback();
         });
-    }
+    },
+
+     saveCode: (codeID, name) => {
+         let code = { 
+            name: name,            
+            code: codeID,
+            question: document.getElementById('secret-question').value,
+            answer: document.getElementById('secret-answer').value,
+            expiration: -(moment().diff(document.getElementById('expiration').value)),
+         };
+         dbScripts.saveCode(code).then(function(res) {
+            console.log(res.data);
+         });
+     }
 }
 
 export default Scripts;

@@ -1,8 +1,7 @@
 import React from 'react';
+import uuid from 'uuid';
 import Nav from './grandchildren/Nav';
 import ProfileModal from './grandchildren/ProfileModal';
-import AlbumModal from './grandchildren/AlbumModal';
-import VideoModal from './grandchildren/VideoModal';
 import ParentModal from './grandchildren/ParentModal';
 import CarouselModal from './grandchildren/CarouselModal';
 import Filter from './grandchildren/Filter';
@@ -16,6 +15,9 @@ import {Redirect} from 'react-router-dom';
 class Profile extends React.Component {
     constructor (props) {
         super(props);        
+        this.state = {
+            code: ''
+        }
         this.loadPosts = this.loadPosts.bind(this);
         this.changePicture = this.changePicture.bind(this);
         this.previewPicture = this.previewPicture.bind(this);
@@ -25,10 +27,14 @@ class Profile extends React.Component {
         this.deletePost = this.deletePost.bind(this);
         this.loadPhotos = this.loadPhotos.bind(this);
         this.saveVideo = this.saveVideo.bind(this);
+        this.createCode = this.createCode.bind(this);
+        this.saveCode = this.saveCode.bind(this);
     }
 
-    test () {
-        console.log(document.getElementById('expiration').value)
+    createCode () {
+        this.setState({
+            code: uuid()
+        });
     }
 
     loadPhotos (id) {
@@ -116,6 +122,12 @@ class Profile extends React.Component {
         });
     }
 
+    saveCode () {
+        let code = this.state.code;
+        let name = this.props.user.name;
+        Scripts.saveCode(code, name);
+    }
+
     render () {
         if (!this.props.logged) return <Redirect push to='/' />;
 
@@ -128,7 +140,7 @@ class Profile extends React.Component {
 
                 <div className='row'>
                     
-                    <User user={this.props.user} />
+                    <User user={this.props.user} createCode={this.createCode} />
                                             
                     <Posts posts={this.props.posts} deletePost={this.deletePost} loadPhotos={this.loadPhotos} deletePost={this.deletePost} />                           
 
@@ -153,9 +165,11 @@ class Profile extends React.Component {
                                 </button>
                                 <h4 className='modal-title pangolin-font'>Code for Share</h4>
                             </div>
-                            <div className='modal-body'>
+                            <div className='modal-body pangolin-font'>
                                 <div className='row'>
                                     <div className='col-md-8 col-md-offset-2'>
+                                        <h6 className='text-center'>The code is...</h6>
+                                        <h2 className='text-center'>{this.state.uuid}</h2>
                                         <label htmlFor='secret-question'>Secret Question</label>
                                         <input type='text' className='form-control' id='secret-question' placeholder="ex. Who's #1 cowboy?" />
 
@@ -169,7 +183,7 @@ class Profile extends React.Component {
                             </div>
                             <div className='modal-footer pangolin-font'>
                                 <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
-                                <button type='button' className='btn btn-primary' id='save-profile-photo' onClick={this.test} data-dismiss='modal'>Submit</button>
+                                <button type='button' className='btn btn-primary' id='save-profile-photo' onClick={this.saveCode} data-dismiss='modal'>Submit</button>
                             </div>
                         </div>
                     </div>

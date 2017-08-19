@@ -1,5 +1,9 @@
 const User = require('../models/User.js');
 const Post = require('../models/Post.js');
+const Code = require('../models/Code.js');
+
+const mongoose = require('mongoose');
+Schema = mongoose.Schema;
 
 module.exports = function(app) {
 
@@ -74,5 +78,22 @@ module.exports = function(app) {
             if (err) console.log(err);
             res.send(doc);
         });       
+    });
+
+    app.post('/api/saveCode', function(req, res) {
+        console.log('save Code');
+        console.log(req.body.code);        
+        Post.find({email: req.session.user.email}, function(err, doc) {
+            if (err) console.log(err);
+            console.log(doc);
+            req.body.code.posts = doc;
+
+           let newCode = new Code(req.body.code);
+            newCode.save(function(err, doc) {
+                Code.startTTLReaper();
+                console.log('reaper');
+                if (err) console.log(err);
+            });
+        });
     });
 }

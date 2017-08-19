@@ -6,7 +6,7 @@ class Invitation extends React.Component {
             <div className='row'>
                 <div className='form-group col-md-8 col-md-offset-2'>
                     <div className='pangolin-font'>
-                        <h4 className='text-center'><strong>Did a family or friend give you a link? Enter it here.</strong></h4>
+                        <h4 className='text-center'><strong>Did a family or friend give you a code? Enter it here.</strong></h4>
                         <div className='input-group'>                            
                             <span className='input-group-addon profile-link'>Link</span>
                             <input type='text' className='form-control' id='invitation-link' />

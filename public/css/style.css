@@ -143,13 +143,13 @@
 #location-filter {
     margin-right: 10px;
 }
-#submit-filter {
+#submit-filter, .video-div {
     margin-top: 10px;
 }
 #modal-album-picture, #album-photo-input, #album-city-input, #album-month-input, #album-desc-input, #album-year-input, .video, #video-city-input, #video-month-input, #video-desc-input, #video-year-input, #poster-input {
     margin-bottom: 5px; 
 }
-.album-pic, #secret-question, #secret-answer {
+.album-pic, #secret-question, #secret-answer, .video-div {
     margin-bottom: 10px;
 }
 .no-border {
@@ -165,3 +165,4 @@
 .info-div {
     padding-left: 0;
 }
+
