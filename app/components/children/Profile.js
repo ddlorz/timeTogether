@@ -79,6 +79,7 @@ class Profile extends React.Component {
     }
     
     saveAlbum () {
+        document.getElementById('save-album').innerHTML = 'Uploading...';
         let updatePosts = this.loadPosts;
         let thumbURL = '', photoArray = [];
         let albumID = '';
@@ -107,6 +108,7 @@ class Profile extends React.Component {
     }
 
     saveVideo () {
+        document.getElementById('save-video').innerHTML = 'Uploading...';
         let updatePosts = this.loadPosts;
         let video = document.getElementById('video-input').files;
         let poster = document.getElementById('poster-input').files;
@@ -117,6 +119,7 @@ class Profile extends React.Component {
                 let posterURL = url;
                 Scripts.saveVideo(videoURL, posterURL, () => {
                     updatePosts();
+                    document.getElementById('close-video').click();
                 });
             });
         });

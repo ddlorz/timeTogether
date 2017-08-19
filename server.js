@@ -26,12 +26,12 @@ app.use(session({
 
 //Mongoose
 mongoose.promise = Promise;
-mongoose.connect('mongodb://localhost/time-together')
+//'mongodb://localhost/time-together'
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds027618.mlab.com:27618/heroku_gdc0h729')
 var db = mongoose.connection;
 
 db.on('error', function(err) {    
     console.log('Mongoose Error: ' + err);
-    mongoose.connect('mongodb://heroku_j8nvp8qz:v1g0s4e8fojvo746eadtv828vv@ds041671.mlab.com:41671/heroku_j8nvp8qz')
 });
 
 db.once('open', function() {

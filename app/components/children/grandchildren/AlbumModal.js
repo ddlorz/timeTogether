@@ -32,8 +32,8 @@ class AlbumModal extends React.Component {
                     </div>
                 </div>
                 <div className='modal-footer pangolin-font'>
-                    <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
-                    <button type='button' className='btn btn-primary' id='save-profile-photo'  data-dismiss='modal' onClick={this.props.saveAlbum}>Save</button>
+                    <button type='button' className='btn btn-default' data-dismiss='modal' id='close-album' >Close</button>
+                    <button type='button' className='btn btn-primary' id='save-album'  data-dismiss='modal' onClick={this.props.saveAlbum}>Save</button>
                 </div>
             </div>
         );

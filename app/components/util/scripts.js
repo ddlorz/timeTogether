@@ -81,6 +81,7 @@ let Scripts = {
         dbScripts.savePhotos(photoArray, id).then(function(res) {
             console.log(res.data._id); 
             updatePosts();
+            document.getElementById('close-video').click();
         }); 
     },
 
