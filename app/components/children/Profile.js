@@ -119,7 +119,6 @@ class Profile extends React.Component {
                 let posterURL = url;
                 Scripts.saveVideo(videoURL, posterURL, () => {
                     updatePosts();
-                    document.getElementById('close-video').click();
                 });
             });
         });

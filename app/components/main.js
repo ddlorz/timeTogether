@@ -33,6 +33,10 @@ class Main extends React.Component{
     getPosts (posts) {
         this.setState({
             posts: posts.reverse()
+        }, () => {
+            document.getElementById('close-modal').click();
+            document.getElementById('save-album').innerHTML = 'Save';
+            document.getElementById('save-video').innerHTML = 'Save';
         });
     }
 
