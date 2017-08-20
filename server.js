@@ -27,7 +27,7 @@ app.use(session({
 //Mongoose
 mongoose.promise = Promise;
 //mongoose.connect('mongodb://localhost/time-together');
-mongoose.connect('mongodb://heroku_gdc0h729:ad2dadho5a6sh2e541us8ag3eo@ds027618.mlab.com:27618/heroku_gdc0h729');
+mongoose.connect(process.env.MONGODB_URI);
 
 var db = mongoose.connection;
 
@@ -42,12 +42,18 @@ db.once('open', function() {
 //AWS
 aws.config.region = 'us-east-1';
 
-const S3_BUCKET = process.env.S3_BUCKET || 'time-together';
+console.log(process.env);
+console.log(process.env.S3_BUCKET);
+console.log(process.env.AWS_ACCESS_KEY_ID);
+console.log(process.env.AWS_SECRET_ACCESS_KEY);
+console.log(process.env.MONGODB_URI);
+
+const S3_BUCKET = process.env.S3_BUCKET;
 
 app.get('/sign-s3', (req, res) => {
   const s3 = new aws.S3({
-        accessKeyId: 'AKIAJG7REFQAE4LCR4EA',
-        secretAccessKey: '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',
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
         signatureVersion: 'v4',
         region: 'us-east-1'
   });
