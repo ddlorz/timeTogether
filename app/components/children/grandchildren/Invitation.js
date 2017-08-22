@@ -1,6 +1,20 @@
 import React from 'react';
+import Scripts from '../../util/scripts';
 
 class Invitation extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            codeInvalid: false
+        };
+        this.confirmCode = this.confirmCode.bind(this);
+    }
+
+    confirmCode () {
+        let code = document.getElementById('invitation-link').value;
+        Scripts.confirmCode(code, this.props.codeValidated);
+    }
+
     render () {
         return (
             <div className='row'>
@@ -11,7 +25,7 @@ class Invitation extends React.Component {
                             <span className='input-group-addon profile-link'>Link</span>
                             <input type='text' className='form-control' id='invitation-link' />
                             <span className='input-group-btn'>
-                                <button className='btn btn-secondary' type='button' onClick={this.props.updateVisitor} >Submit</button>
+                                <button className='btn btn-secondary' type='button' onClick={this.confirmCode} >Submit</button>
                             </span>
                         </div>
                     </div>

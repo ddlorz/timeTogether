@@ -6,7 +6,7 @@ const session = require('express-session')
 const aws = require('aws-sdk');
 
 var app = express();
-const PORT = (process.env.PORT || 8080);
+const PORT = (process.env.PORT);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -42,14 +42,6 @@ db.once('open', function() {
 //AWS
 aws.config.region = 'us-east-1';
 
-console.log(process.env);
-console.log(process.env.S3_BUCKET);
-console.log(process.env.AWS_ACCESS_KEY_ID);
-console.log(process.env.AWS_SECRET_ACCESS_KEY);
-console.log(process.env.MONGODB_URI);
-
-const S3_BUCKET = process.env.S3_BUCKET;
-
 app.get('/sign-s3', (req, res) => {
   const s3 = new aws.S3({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -60,7 +52,7 @@ app.get('/sign-s3', (req, res) => {
   const fileName = req.query['file-name'];
   const fileType = req.query['file-type'];
   const s3Params = {
-    Bucket: S3_BUCKET,
+    Bucket: process.env.S3_BUCKET,
     Key: fileName,
     Expires: 60,
     ContentType: fileType,
@@ -74,7 +66,7 @@ app.get('/sign-s3', (req, res) => {
     }
     const returnData = {
       signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+      url: `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${fileName}`
     };
     res.write(JSON.stringify(returnData));
     res.end();

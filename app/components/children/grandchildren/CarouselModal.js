@@ -2,7 +2,6 @@ import React from 'react';
 
 class CarouselModal extends React.Component {
     render () {
-
         let postMatch = [];
         postMatch = this.props.posts.filter((post) => {return post._id === this.props.photos})
         if (!postMatch[0]) postMatch[0] = {album: ['placeholder']};

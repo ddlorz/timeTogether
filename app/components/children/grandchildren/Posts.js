@@ -3,7 +3,7 @@ import React from 'react';
 class Posts extends React.Component {
     render () {
         return (
-            <div className='col-md-7 col-md-offset-0'>
+            <div className='col-md-7'>
                 <div className='row add-album-div'>
                     <button type='button' className='btn btn-default btn-sm center-block'  data-toggle='modal' data-target='#add-post-modal'>Post an Album or Video</button>
                 </div>

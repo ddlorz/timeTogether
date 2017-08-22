@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import Nav from './grandchildren/Nav';
 import ProfileModal from './grandchildren/ProfileModal';
 import ParentModal from './grandchildren/ParentModal';
+import CodeModal from './grandchildren/CodeModal';
 import CarouselModal from './grandchildren/CarouselModal';
 import Filter from './grandchildren/Filter';
 import User from './grandchildren/User';
@@ -34,7 +35,7 @@ class Profile extends React.Component {
     createCode () {
         this.setState({
             code: uuid()
-        });
+        }, () => console.log(this.state.code));
     }
 
     loadPhotos (id) {
@@ -127,7 +128,8 @@ class Profile extends React.Component {
     saveCode () {
         let code = this.state.code;
         let name = this.props.user.name;
-        Scripts.saveCode(code, name);
+        let picture = this.props.user.picture;
+        Scripts.saveCode(code, name, picture);
     }
 
     render () {
@@ -158,38 +160,7 @@ class Profile extends React.Component {
 
                 <CarouselModal posts={this.props.posts} photos={this.props.photos} />
 
-                <div className='modal fade' tabIndex='-1' role='dialog' id='generate-code-modal'>
-                    <div className='modal-dialog' role='document'>
-                        <div className='modal-content'>
-                            <div className='modal-header'>
-                                <button type='button' className='close' data-dismiss='modal'>
-                                    <span aria-hidden='true'>&times;</span>
-                                </button>
-                                <h4 className='modal-title pangolin-font'>Code for Share</h4>
-                            </div>
-                            <div className='modal-body pangolin-font'>
-                                <div className='row'>
-                                    <div className='col-md-8 col-md-offset-2'>
-                                        <h6 className='text-center'>The code is...</h6>
-                                        <h2 className='text-center'>{this.state.uuid}</h2>
-                                        <label htmlFor='secret-question'>Secret Question</label>
-                                        <input type='text' className='form-control' id='secret-question' placeholder="ex. Who's #1 cowboy?" />
-
-                                        <label htmlFor='secret-answer'>Secret Answer</label>
-                                        <input type='text' className='form-control' id='secret-answer' placeholder='ex. John Wayne' />
-
-                                        <label htmlFor='secret-answer'>Date of Expiration</label>
-                                        <input type='datetime-local' className='form-control' id='expiration' />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='modal-footer pangolin-font'>
-                                <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
-                                <button type='button' className='btn btn-primary' id='save-profile-photo' onClick={this.saveCode} data-dismiss='modal'>Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <CodeModal code={this.state.code} saveCode={this.saveCode} />
 
                 <hr />
 

@@ -27,6 +27,9 @@ let dbScripts = {
     },
     saveCode: (code) => {
         return axios.post('/api/saveCode', {code: code});
+    },
+    confirmCode: (code) => {
+        return axios.post('/api/confirmCode', {code: code});
     }
 }
 

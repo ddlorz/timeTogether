@@ -8,6 +8,9 @@ let CodeSchema = new mongoose.Schema({
     name: {
         type: String
     },
+    picture: {
+        type: String
+    },
     question: {
         type: String
     },

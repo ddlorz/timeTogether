@@ -15,13 +15,21 @@ class Main extends React.Component{
             photos: '',
             video: null,
             loggedIn: false,
-            visitor: false
+            visitor: false,
+            guestData: {}
         }
         this.updateUser = this.updateUser.bind(this);
         this.updateLog = this.updateLog.bind(this);
         this.getPosts = this.getPosts.bind(this);
         this.saveAlbumID = this.saveAlbumID.bind(this);
         this.updateVisitor = this.updateVisitor.bind(this);
+        this.setGuestData = this.setGuestData.bind(this);
+    }
+
+    setGuestData (data) {
+        this.setState({
+            guestData: data
+        });
     }
 
     saveAlbumID (id) {
@@ -35,8 +43,8 @@ class Main extends React.Component{
             posts: posts.reverse()
         }, () => {
             document.getElementById('close-modal').click();
-            document.getElementById('save-album').innerHTML = 'Save';
-            document.getElementById('save-video').innerHTML = 'Save';
+            if (document.getElementById('save-album')) document.getElementById('save-album').innerHTML = 'Save';
+            if (document.getElementById('save-video')) document.getElementById('save-video').innerHTML = 'Save';
         });
     }
 
@@ -59,16 +67,16 @@ class Main extends React.Component{
     updateVisitor () {
         console.log('Update Visitor');
         this.setState({
-            visitor: !this.state.loggedIn
+            visitor: !this.state.visitor
         })
     }
 
     render () {
         return (
-            <div>    
-                <Route exact path='/' render={ () => <Landing updateUser={this.updateUser} updateLog={this.updateLog} logged={this.state.loggedIn} visitor={this.state.visitor} updateVisitor={this.updateVisitor} />} />
+            <div>
+                <Route exact path='/' render={ () => <Landing updateUser={this.updateUser} updateLog={this.updateLog} logged={this.state.loggedIn} visitor={this.state.visitor} updateVisitor={this.updateVisitor} guestData={this.state.guestData} setGuestData={this.setGuestData} />} />
                 <Route path='/profile' render={ () => <Profile user={this.state.user} updateLog={this.updateLog} logged={this.state.loggedIn} posts={this.state.posts} getPosts={this.getPosts} photos={this.state.photos} saveAlbumID={this.saveAlbumID} />} />
-                <Route path='/visit' render={ () => <Visitor />} />
+                <Route path='/visit' render={ () => <Visitor guestData={this.state.guestData} updateVisitor={this.updateVisitor} visitor={this.state.visitor} />} />
 
                 <Social />
                 <Footer />

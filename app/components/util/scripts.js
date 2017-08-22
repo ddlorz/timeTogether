@@ -98,16 +98,24 @@ let Scripts = {
         });
     },
 
-     saveCode: (codeID, name) => {
+     saveCode: (codeID, name, picture) => {
          let code = { 
             name: name,            
             code: codeID,
+            picture: picture,
             question: document.getElementById('secret-question').value,
             answer: document.getElementById('secret-answer').value,
             expiration: -(moment().diff(document.getElementById('expiration').value)),
          };
          dbScripts.saveCode(code).then(function(res) {
             console.log(res.data);
+         });
+     },
+
+     confirmCode: (code, callback) => {
+         dbScripts.confirmCode(code).then(function(res) {
+             if (!res.data[0]) callback(false);
+             else callback(true, res.data[0]);
          });
      }
 }

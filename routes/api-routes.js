@@ -81,19 +81,24 @@ module.exports = function(app) {
     });
 
     app.post('/api/saveCode', function(req, res) {
-        console.log('save Code');
-        console.log(req.body.code);        
+        console.log('save Code');   
         Post.find({email: req.session.user.email}, function(err, doc) {
             if (err) console.log(err);
-            console.log(doc);
-            req.body.code.posts = doc;
+            req.body.code.posts = doc.reverse();
 
            let newCode = new Code(req.body.code);
             newCode.save(function(err, doc) {
                 Code.startTTLReaper();
-                console.log('reaper');
                 if (err) console.log(err);
+                res.end();
             });
+        });
+    });
+
+    app.post('/api/confirmCode', function(req, res) {
+        Code.find({code: req.body.code}, function(err, doc) {
+            if (err) console.log(err);
+            res.send(doc);
         });
     });
 }
