@@ -35,11 +35,11 @@ class Signin extends React.Component {
                             <div className='form-group row main-div-header'>
                                 <div className='col-sm-5 pangolin-font div-input-header'>
                                     <label htmlFor='email-login' className='label-header'>Email</label>
-                                    <input type='email' className='form-control input-sm input-header' id='email-login' placeholder='' value='a@gmail.com' />
+                                    <input type='email' className='form-control input-sm input-header' id='email-login' placeholder='myEmail@somewhere.com'  />
                                 </div>
                                 <div className='col-sm-5 pangolin-font div-input-header'>
                                     <label htmlFor='email-login' className='label-header'>Password</label>
-                                    <input type='password' className='form-control input-sm input-header' id='password-login' placeholder='' value='password' />
+                                    <input type='password' className='form-control input-sm input-header' id='password-login' placeholder='password1234' />
                                 </div>
                                 <div className='col-sm-2 pangolin-font'>
                                     <label htmlFor='sign-in'></label>
