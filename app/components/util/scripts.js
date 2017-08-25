@@ -98,13 +98,14 @@ let Scripts = {
         });
     },
 
-     saveCode: (codeID, name, picture) => {
+     saveCode: (codeID, name, picture, posts) => {
          let code = { 
             name: name,            
             code: codeID,
             picture: picture,
             question: document.getElementById('secret-question').value,
             answer: document.getElementById('secret-answer').value,
+            posts: posts,
             expiration: -(moment().diff(document.getElementById('expiration').value)),
          };
          dbScripts.saveCode(code).then(function(res) {
@@ -116,6 +117,13 @@ let Scripts = {
          dbScripts.confirmCode(code).then(function(res) {
              if (!res.data[0]) callback(false);
              else callback(true, res.data[0]);
+         });
+     },
+
+     getPostsWithFilter: (months, callback) => {
+         dbScripts.getPostsWithFilter(months).then(function(res) {
+             console.log(res.data);
+             callback(res.data);
          });
      }
 }

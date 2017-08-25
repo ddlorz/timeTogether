@@ -30,6 +30,9 @@ let dbScripts = {
     },
     confirmCode: (code) => {
         return axios.post('/api/confirmCode', {code: code});
+    },
+    getPostsWithFilter: (months) => {
+        return axios.post('/api/getPostsWithFilter', {months: months});
     }
 }
 

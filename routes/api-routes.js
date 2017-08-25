@@ -82,16 +82,11 @@ module.exports = function(app) {
 
     app.post('/api/saveCode', function(req, res) {
         console.log('save Code');   
-        Post.find({email: req.session.user.email}, function(err, doc) {
+        let newCode = new Code(req.body.code);
+        newCode.save(function(err, doc) {
+            Code.startTTLReaper();
             if (err) console.log(err);
-            req.body.code.posts = doc.reverse();
-
-           let newCode = new Code(req.body.code);
-            newCode.save(function(err, doc) {
-                Code.startTTLReaper();
-                if (err) console.log(err);
-                res.end();
-            });
+            res.end();
         });
     });
 
@@ -100,5 +95,23 @@ module.exports = function(app) {
             if (err) console.log(err);
             res.send(doc);
         });
+    });
+
+    app.post('/api/getPostsWithFilter', function(req, res){
+        let months = req.body.months;
+        let filteredPosts = [];
+        for (let i = 0; i < months.length; i++) {
+            monthQuery = months[i].charAt(0).toUpperCase() + months[i].slice(1);
+            console.log(monthQuery);
+            Post.find({email: req.session.user.email, month: monthQuery}, function(err, doc) {
+                if (err) console.log(err);
+                filteredPosts.push.apply(filteredPosts, doc);
+                
+                if (i === months.length - 1) {
+                    res.send(filteredPosts);
+                }
+            });
+        }
+        
     });
 }

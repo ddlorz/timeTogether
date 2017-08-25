@@ -30,6 +30,7 @@ class Profile extends React.Component {
         this.saveVideo = this.saveVideo.bind(this);
         this.createCode = this.createCode.bind(this);
         this.saveCode = this.saveCode.bind(this);
+        this.loadPostsWithFilters = this.loadPostsWithFilters.bind(this);
     }
 
     createCode () {
@@ -49,6 +50,12 @@ class Profile extends React.Component {
 
     loadPosts () {        
         Scripts.getPosts((posts) => {
+            this.props.getPosts(posts);
+        });
+    }
+
+    loadPostsWithFilters (months) {
+        Scripts.getPostsWithFilter(months, (posts) => {
             this.props.getPosts(posts);
         });
     }
@@ -128,8 +135,9 @@ class Profile extends React.Component {
     saveCode () {
         let code = this.state.code;
         let name = this.props.user.name;
+        let posts = this.props.posts;
         let picture = this.props.user.picture;
-        Scripts.saveCode(code, name, picture);
+        Scripts.saveCode(code, name, picture, posts);
     }
 
     render () {
@@ -148,7 +156,7 @@ class Profile extends React.Component {
                                             
                     <Posts posts={this.props.posts} deletePost={this.deletePost} loadPhotos={this.loadPhotos} deletePost={this.deletePost} />                           
 
-                    <Filter />
+                    <Filter loadPostsWithFilters={this.loadPostsWithFilters} />
 
                 </div>     
 
